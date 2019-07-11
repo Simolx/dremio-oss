@@ -170,6 +170,24 @@
         <artifactId>exec-maven-plugin</artifactId>
         <executions>
           <!--
+               To run a debug server in IDE:
+               In runn Edit Configurationns -> Maven
+               -> Parameters
+                 command line: compile exec:java@default-debug -pl dac/daemon
+               -> Runner
+                 Environment variables: MAVEN_OPS="-Xms512m -Xmx4g -XX:MaxDirectMemorySize=1g -Ddremio_debug=true -Djava.io.tmpdir=${project.build.directory} -Ddac_prepopulate=true -Ddebug.addDefaultUser=true -Ddebug.allowTestApis=true -cp "
+          -->
+          <execution>
+            <id>default-debug</id>
+            <goals>
+              <goal>java</goal>
+            </goals>
+            <configuration>
+              <classpathScope>test</classpathScope>
+              <mainClass>com.dremio.dac.daemon.DremioDaemon</mainClass>
+            </configuration>
+          </execution>
+          <!--
                To run a test server:
                mvn org.codehaus.mojo:exec-maven-plugin:exec
           -->
